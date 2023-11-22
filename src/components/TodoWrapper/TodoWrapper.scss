@@ -1,0 +1,40 @@
+// todo konteyneri
+.box {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 20px;
+  .container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  h2 {
+    margin-bottom: 10px;
+  }
+  &-day {
+    width: 100%;
+  }
+  &-empty {
+    text-align: center;
+  }
+  &-clear {
+    font-size: 20px;
+    padding: 10px 25px;
+    background-color: #11b7f8;
+    border: 1px solid #11b7f8;
+    border-radius: 5px;
+    color: #fff;
+    transition: 0.3s;
+    &:hover {
+      background-color: #fff;
+      color: #11b7f8;
+    }
+  }
+  .stroke {
+    text-decoration: line-through;
+  }
+}

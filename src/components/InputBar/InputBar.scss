@@ -1,0 +1,22 @@
+// asosiy input forma
+.form {
+  width: 100%;
+  padding: 20px 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  &__input {
+    flex-grow: 1;
+    border: 2px solid #b2b2b2;
+    padding: 10px 10px;
+    border-radius: 5px;
+  }
+  &__submit {
+    border: 2px solid #7ec19d;
+    padding: 10px;
+    background-color: #89d7ad;
+    border-radius: 5px;
+    color: #fff;
+  }
+}

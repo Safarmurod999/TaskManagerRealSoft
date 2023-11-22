@@ -1,0 +1,38 @@
+// task item
+.item {
+  padding: 5px 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  transition: 0.3s;
+  @media screen and (max-width:570px) {
+    flex-direction: column;
+  }
+  &:hover {
+    background-color: #f3f1f1;
+  }
+  &-view,
+  &-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  &-check {
+    width: 15px;
+  }
+  &-btn {
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    &:hover {
+      color: rgba(17, 183, 248, 0.7);
+    }
+  }
+}
