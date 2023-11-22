@@ -10,6 +10,8 @@
   transition: 0.3s;
   @media screen and (max-width:570px) {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
   }
   &:hover {
     background-color: #f3f1f1;
