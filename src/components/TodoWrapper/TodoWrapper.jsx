@@ -13,11 +13,12 @@ export default function Posts() {
   });
   let bugun = data.filter(item => item.day === "bugun");
   let ertaga = data.filter(item => item.day === "ertaga");
-  let keyin = data.filter(item => item.day === "keyin").sort((a, b) => {
-    let timeA = new Date(...a?.date.split(":")).getTime();
-    let timeB = new Date(...b?.date.split(":")).getTime();
-    return timeA - timeB;
-  });
+  let keyin = data.filter(item => item.day === "keyin");
+  // let keyin = data.sort((a, b) => {
+  //   let timeA = new Date(...a?.date.split(":")).getTime();
+  //   let timeB = new Date(...b?.date.split(":")).getTime();
+  //   return timeA - timeB;
+  // })
   if (todos?.length == 0) {
     return (
       <div className="box">
@@ -33,9 +34,9 @@ export default function Posts() {
       {bugun.length > 0 && <>
         <h2>Bugun</h2>
         <div className="box-day">
-          {bugun.map((item, idx) => {
+          {data.map((item) => {
             if (item.day === "bugun") {
-              return <Todo key={idx} {...item} />;
+              return <Todo key={item.id} {...item} />;
             }
           })}
         </div></>}
@@ -43,9 +44,9 @@ export default function Posts() {
         ertaga.length > 0 && <>
           <h2>Ertaga</h2>
           <div className="box-day">
-            {ertaga.map((item, idx) => {
+            {data.map((item) => {
               if (item.day === "ertaga") {
-                return <Todo key={idx} {...item} />;
+                return <Todo key={item.id} {...item} />;
               }
             })}
           </div></>
@@ -54,12 +55,13 @@ export default function Posts() {
         keyin.length > 0 && <>
           <h2>Keyin</h2>
           <div className="box-day">
-            {keyin.map((item, idx) => {
+            {data.map((item) => {
               if (item.day === "keyin") {
-                return <Todo key={idx} {...item} />;
+                return <Todo key={item.id} {...item} />;
               }
             })}
-          </div></>
+          </div>
+        </>
       }
     </div>
   );

@@ -15,10 +15,7 @@ const initialState = {
 
 const TaskProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
-  const removeItem = (id) => {
-    dispatch({ type: "REMOVE", payload: id });
-  };
+
   const addItem = (data) => {
     dispatch({ type: "ADD", payload: data });
   };
@@ -29,7 +26,6 @@ const TaskProvider = ({ children }) => {
     <TaskContext.Provider
       value={{
         ...state,
-        removeItem,
         addItem,
         toggleItem,
       }}

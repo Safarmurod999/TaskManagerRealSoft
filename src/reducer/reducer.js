@@ -1,17 +1,7 @@
 const reducer = (state, action) => {
-  // Task ni olib tashlash
-  if (action.type === "REMOVE") {
-    // payload ga teng bo'lmagan id li elementlarni saralash
-    let tempTodos = state.todos.filter((todo) => todo.id !== action.payload);
-    localStorage.setItem("todos", JSON.stringify(tempTodos));
-    return {
-      ...state,
-      total: tempTodos.length - 1,
-      todos: tempTodos,
-    };
-  }
   // Yangi taskni qo'shish
   if (action.type === "ADD") {
+
     let id = state.todos.at(-1)?.id + 1 || 0;
     let strArr = action.payload.split(" ");
     let time = new Date().getHours() + 1;
@@ -26,7 +16,7 @@ const reducer = (state, action) => {
     //  task ning bugun ertaga yoki keyinga ekanini aniqlash
     for (const str of strArr) {
       if (state.days.includes(str.toLowerCase())) {
-        if (str == "ertaga") {
+        if (str == "ertaga" || str =="keyin") {
           todo.time = "9:00";
         }
         todo.day = str.toLowerCase();
@@ -81,7 +71,6 @@ const reducer = (state, action) => {
       ...state,
       total: state.todos.length,
       todos: state.todos,
-      date: "",
     };
   }
   // Taskni toggle qilish
@@ -91,6 +80,7 @@ const reducer = (state, action) => {
     completedTodo.completed
       ? (completedTodo.completed = false)
       : (completedTodo.completed = true);
+      console.log(state.todos);
     localStorage.setItem("todos", JSON.stringify(state.todos));
 
     return {
