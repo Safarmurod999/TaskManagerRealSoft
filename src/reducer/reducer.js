@@ -54,7 +54,6 @@ const reducer = (state, action) => {
     for (const str of strArr) {
       if (str[2] == ":" || str[1] == ":") {
         let timeStr = str.split(":");
-        // if (!isNaN(+timeStr[0])) {
         if (
           timeStr[0] >= 0 &&
           timeStr[1] >= 0 &&
@@ -63,26 +62,14 @@ const reducer = (state, action) => {
           timeStr[1].length > 1 &&
           timeStr[1].length <= 2
         ) {
-          // if (todo.day === "bugun") {
-          //   if (new Date().getHours() < timeStr[0]) {
-          //     let newStrArr = strArr.join(" ").replace(str, "");
-          //     todo.time = timeStr.join(":");
-          //     todo.title = newStrArr;
-          //     strArr.splice(strArr.indexOf(timeStr.join(":")), 1);
-          //     break;
-          //   }
-          // } else {
-          let newStrArr = strArr.join(" ").replace(str, "");
-          todo.time = timeStr.join(":");
-          todo.title = newStrArr;
-          strArr.splice(strArr.indexOf(timeStr.join(":")), 1);
-          break;
-          // }
-          // }
+            let newStrArr = strArr.join(" ").replace(str, "");
+            todo.time = timeStr.join(":");
+            todo.title = newStrArr;
+            strArr.splice(strArr.indexOf(timeStr.join(":")), 1);
+            break;
         }
       }
     }
-
     state.todos.push(todo);
     localStorage.setItem("todos", JSON.stringify(state.todos));
     return {
