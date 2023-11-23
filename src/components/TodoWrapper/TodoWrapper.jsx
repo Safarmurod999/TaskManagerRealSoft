@@ -24,7 +24,6 @@ export default function Posts() {
     let timeB = new Date(...b?.date.split(":")).getTime();
     return timeA - timeB;
   })
-  console.log(keyin);
   if (todos?.length == 0) {
     return (
       <div className="box">

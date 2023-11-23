@@ -24,53 +24,61 @@ const reducer = (state, action) => {
         strArr.splice(strArr.indexOf(str), 1);
       }
     }
-        // task ning sanasini aniqlash
-        for (const str of strArr) {
-          if (str[2] == "." || str[1] == ".") {
-            let timeStr = str.split(".");
-            if (!isNaN(+timeStr[0]) && !isNaN(+timeStr[1]) && !isNaN(+timeStr[2])) {
-              if (
-                (timeStr[0] > 0 &&
-                  timeStr[1] > 0 &&
-                  timeStr[2] > 0 &&
-                  timeStr[1] <= 12 &&
-                  timeStr[0] <= 31) ||
-                (timeStr[1] === 2 && timeStr[0] < 29)
-              ) {
-                let newStrArr = strArr.join(" ").replace(str, "");
-                // task ning soati o'tib ketgan sana yoki yo'qligini tekshirish
-                if (new Date() < new Date(timeStr.reverse().join("-"))) {
-                  todo.date = timeStr.reverse().join(".");
-                  todo.day = "keyin";
-                  todo.time = "9:00";
-                  todo.title = newStrArr;
-                  strArr.splice(strArr.indexOf(timeStr.join(".")), 1);
-                }
-              }
+    // task ning sanasini aniqlash
+    for (const str of strArr) {
+      if (str[2] == "." || str[1] == ".") {
+        let timeStr = str.split(".");
+        if (!isNaN(+timeStr[0]) && !isNaN(+timeStr[1]) && !isNaN(+timeStr[2])) {
+          if (
+            (timeStr[0] > 0 &&
+              timeStr[1] > 0 &&
+              timeStr[2] > 0 &&
+              timeStr[1] <= 12 &&
+              timeStr[0] <= 31) ||
+            (timeStr[1] === 2 && timeStr[0] < 29)
+          ) {
+            let newStrArr = strArr.join(" ").replace(str, "");
+            // task ning soati o'tib ketgan sana yoki yo'qligini tekshirish
+            if (new Date() < new Date(timeStr.reverse().join("-"))) {
+              todo.date = timeStr.reverse().join(".");
+              todo.day = "keyin";
+              todo.time = "9:00";
+              todo.title = newStrArr;
+              strArr.splice(strArr.indexOf(timeStr.join(".")), 1);
             }
           }
         }
+      }
+    }
     // task ning soatini aniqlash
     for (const str of strArr) {
       if (str[2] == ":" || str[1] == ":") {
         let timeStr = str.split(":");
-        if (!isNaN(+timeStr[0]) && !isNaN(+timeStr[1])) {
-          if (
-            timeStr[0] >= 0 &&
-            timeStr[1] >= 0 &&
-            timeStr[0] <= 23 &&
-            timeStr[1] <= 59 &&
-            timeStr[1].length > 1 &&
-            timeStr[1].length <= 2
-          ) {
-            if (new Date().getHours() < timeStr[0]) {
-              let newStrArr = strArr.join(" ").replace(str, "");
-              todo.time = timeStr.join(":");
-              todo.title = newStrArr;
-              strArr.splice(strArr.indexOf(timeStr.join(":")), 1);
-              break;
-            }
-          }
+        // if (!isNaN(+timeStr[0])) {
+        if (
+          timeStr[0] >= 0 &&
+          timeStr[1] >= 0 &&
+          timeStr[0] <= 23 &&
+          timeStr[1] <= 59 &&
+          timeStr[1].length > 1 &&
+          timeStr[1].length <= 2
+        ) {
+          // if (todo.day === "bugun") {
+          //   if (new Date().getHours() < timeStr[0]) {
+          //     let newStrArr = strArr.join(" ").replace(str, "");
+          //     todo.time = timeStr.join(":");
+          //     todo.title = newStrArr;
+          //     strArr.splice(strArr.indexOf(timeStr.join(":")), 1);
+          //     break;
+          //   }
+          // } else {
+          let newStrArr = strArr.join(" ").replace(str, "");
+          todo.time = timeStr.join(":");
+          todo.title = newStrArr;
+          strArr.splice(strArr.indexOf(timeStr.join(":")), 1);
+          break;
+          // }
+          // }
         }
       }
     }
