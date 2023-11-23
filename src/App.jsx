@@ -18,7 +18,7 @@ function App() {
       <InputBar />
       <p>Bugun: {date}</p>
       <TodoWrapper />
-      <p style={{ textAlign: "right" }}>Bajarilganlar:{completed}</p>
+      <p style={{ marginTop:"30px",textAlign: "right" }}>Bajarilganlar:{completed}</p>
       <p style={{ textAlign: "right" }}>Bajarilmaganlar:{total - completed}</p>
     </section>
   );

@@ -13,10 +13,10 @@ export default function Post({ id, title, completed,date, time }) {
   return (
     <div className="item">
       <div className="item-view">
-        <input type="checkbox" name="complete" value={active} checked={completed} onChange={ handleCheck} className={"item-check"} />
-        <p className={` item-name ${completed && 'stroke'}`}>
+        <input type="checkbox" name="complete" id={`item-${id}`} value={active} checked={completed} onChange={ handleCheck} className={"item-check"} />
+        <label htmlFor={`item-${id}`} className={` item-name ${completed && 'stroke'}`}>
           {title}
-        </p>
+        </label>
       </div>
       <div className="item-control">
         <p className={` item-name ${completed && 'stroke'}`}>{date} {time}</p>

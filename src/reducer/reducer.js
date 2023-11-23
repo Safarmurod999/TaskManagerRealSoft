@@ -1,8 +1,7 @@
 const reducer = (state, action) => {
   // Yangi taskni qo'shish
   if (action.type === "ADD") {
-
-    let id = state.todos.at(-1)?.id + 1 || 0;
+    let id = state.todos.length + 1;
     let strArr = action.payload.split(" ");
     let time = new Date().getHours() + 1;
     // task ning default holati
@@ -16,14 +15,41 @@ const reducer = (state, action) => {
     //  task ning bugun ertaga yoki keyinga ekanini aniqlash
     for (const str of strArr) {
       if (state.days.includes(str.toLowerCase())) {
-        if (str == "ertaga" || str =="keyin") {
+        if (str == "ertaga") {
           todo.time = "9:00";
         }
         todo.day = str.toLowerCase();
         let task = strArr.join(" ").replace(str, "");
         todo.title = task;
+        strArr.splice(strArr.indexOf(str), 1);
       }
-      // task ning sanasini aniqlash
+    }
+    // task ning soatini aniqlash
+    for (const str of strArr) {
+      if (str[2] == ":" || str[1] == ":") {
+        let timeStr = str.split(":");
+        if (!isNaN(+timeStr[0]) && !isNaN(+timeStr[1])) {
+          if (
+            timeStr[0] >= 0 &&
+            timeStr[1] >= 0 &&
+            timeStr[0] <= 23 &&
+            timeStr[1] <= 59 &&
+            timeStr[1].length > 1 &&
+            timeStr[1].length <= 2
+          ) {
+            if (new Date().getHours() < timeStr[0]) {
+              let newStrArr = strArr.join(" ").replace(str, "");
+              todo.time = timeStr.join(":");
+              todo.title = newStrArr;
+              strArr.splice(strArr.indexOf(timeStr.join(":")), 1);
+              break;
+            }
+          }
+        }
+      }
+    }
+    // task ning sanasini aniqlash
+    for (const str of strArr) {
       if (str[2] == "." || str[1] == ".") {
         let timeStr = str.split(".");
         if (!isNaN(+timeStr[0]) && !isNaN(+timeStr[1]) && !isNaN(+timeStr[2])) {
@@ -38,28 +64,11 @@ const reducer = (state, action) => {
             let newStrArr = strArr.join(" ").replace(str, "");
             // task ning soati o'tib ketgan sana yoki yo'qligini tekshirish
             if (new Date() < new Date(timeStr.reverse().join("-"))) {
-              todo.date = timeStr.join(":");
+              todo.date = timeStr.reverse().join(".");
               todo.time = "9:00";
               todo.day = "keyin";
               todo.title = newStrArr;
-            }
-          }
-        }
-      }
-      // task ning soatini aniqlash
-      if (str[2] == ":" || str[1] == ":") {
-        let timeStr = str.split(":");
-        if (!isNaN(+timeStr[0]) && !isNaN(+timeStr[1])) {
-          if (
-            timeStr[0] >= 0 &&
-            timeStr[1] >= 0 &&
-            timeStr[0] <= 23 &&
-            timeStr[1] <= 59
-          ) {
-            if (new Date().getHours() < timeStr[0]) {
-              let newStrArr = strArr.join(" ").replace(str, "");
-              todo.time = timeStr.join(":");
-              todo.title = newStrArr;
+              strArr.splice(strArr.indexOf(timeStr.join(".")), 1);
             }
           }
         }
@@ -80,7 +89,6 @@ const reducer = (state, action) => {
     completedTodo.completed
       ? (completedTodo.completed = false)
       : (completedTodo.completed = true);
-      console.log(state.todos);
     localStorage.setItem("todos", JSON.stringify(state.todos));
 
     return {
